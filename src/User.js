@@ -10,14 +10,13 @@ function User() {
     fetchdata();
   }, []);
 
-
   let fetchdata = async () => {
     try {
       setLoading(true);
       const users = await axios.get(
         "https://6346c13f9eb7f8c0f884b683.mockapi.io/users"
       );
-      console.log(users)
+      console.log(users);
       setUsers(users.data);
       setLoading(false);
     } catch (error) {
@@ -26,17 +25,17 @@ function User() {
   };
 
   let deleteuser = () => {
-    const result = window.confirm("Are you sure want to delete?")
-    if(result){
-        alert("Deleted...")
+    const result = window.confirm("Are you sure want to delete?");
+    if (result) {
+      alert("Deleted...");
     }
-  }
+  };
   return (
     <div class="container-fluid">
       <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Users</h1>
         <Link
-          to={"/users/create"}
+          to={"/create-user"}
           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
         >
           <i class="fas fa-download fa-sm text-white-50"></i>Create User
@@ -78,7 +77,7 @@ function User() {
                 </thead>
                 <tfoot>
                   <tr>
-                  <th>ID</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Country</th>
@@ -91,9 +90,9 @@ function User() {
                   </tr>
                 </tfoot>
                 <tbody>
-                  {
-                    users.map((user)=>{
-                    return ( <tr>
+                  {users.map((user) => {
+                    return (
+                      <tr>
                         <td>{user.id}</td>
                         <td>{user.name}</td>
                         <td>{user.email}</td>
@@ -101,12 +100,33 @@ function User() {
                         <td>{user.state}</td>
                         <td>{user.city}</td>
                         <td>{user.dob}</td>
-                        <td><Link to={`/users/view/${user.id}`} className="btn btn-warning">View</Link></td>
-                        <td><Link to={`/users/edit/${user.id}`} className="btn btn-primary">Edit</Link></td>
-                        <td><button className="btn btn-danger" onClick={()=>deleteuser()}>Delete</button></td>
-                      </tr>)
-                    })
-                  }
+                        <td>
+                          <Link
+                            to={`/profile/${user.id}`}
+                            className="btn btn-warning"
+                          >
+                            View
+                          </Link>
+                        </td>
+                        <td>
+                          <Link
+                            to={`/edit-user/${user.id}`}
+                            className="btn btn-primary"
+                          >
+                            Edit
+                          </Link>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => deleteuser()}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

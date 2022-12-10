@@ -1,28 +1,66 @@
+import axios from "axios";
+import { useFormik } from "formik";
 import React from "react";
 function Createuser() {
-  let formsubmit = () => {
-    alert("User created");
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      country: "",
+      state: "",
+      city: "",
+      dob: "",
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      try {
+        const userdata = await axios.post(
+          "https://6346c13f9eb7f8c0f884b683.mockapi.io/users",
+          values
+        );
+        alert("success")
+      } catch (error) {
+        alert("error");
+      }
+    },
+  });
   return (
     <div className="container">
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <div className="row">
           <div className="col-lg-6">
             <div className="form-group">
               <label>Usernmae</label>
-              <input className="form-control" type={"text"} />
+              <input
+                className="form-control"
+                type={"text"}
+                name="name"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+              />
             </div>
           </div>
           <div className="col-lg-6">
             <div className="form-group">
               <label>Email</label>
-              <input className="form-control" type={"email"} />
+              <input
+                className="form-control"
+                type={"email"}
+                name="email"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+              />
             </div>
           </div>
           <div className="col-lg-6">
             <div className="form-group">
               <label>Country</label>
-              <select className="form-control">
+              <select
+                className="form-control"
+                name="country"
+                onChange={formik.handleChange}
+                value={formik.values.country}
+              >
                 <option>India</option>
                 <option>China</option>
                 <option>America</option>
@@ -33,7 +71,12 @@ function Createuser() {
           <div className="col-lg-6">
             <div className="form-group">
               <label>State</label>
-              <select className="form-control">
+              <select
+                className="form-control"
+                name="state"
+                onChange={formik.handleChange}
+                value={formik.values.state}
+              >
                 <option>Tamilnadu</option>
                 <option>Kerla</option>
                 <option>Karnataka</option>
@@ -44,7 +87,12 @@ function Createuser() {
           <div className="col-lg-6">
             <div className="form-group">
               <label>City</label>
-              <select className="form-control">
+              <select
+                className="form-control"
+                name="city"
+                onChange={formik.handleChange}
+                value={formik.values.city}
+              >
                 <option>Chennai</option>
                 <option>Bengalore</option>
                 <option>Coimbatore</option>
@@ -55,16 +103,18 @@ function Createuser() {
           <div className="col-lg-6">
             <div className="form-group">
               <label>Date Of Birth</label>
-              <input className="form-control" type={"date"} />
+              <input
+                className="form-control"
+                type={"date"}
+                name="dob"
+                onChange={formik.handleChange}
+                value={formik.values.dob}
+              />
             </div>
           </div>
           <div className="col-lg-6">
             <div className="form-group">
-              <button
-                className="btn btn-primary"
-                onClick={formsubmit}>
-                Submit
-              </button>
+              <input type={"submit"} className="btn btn-primary" />
             </div>
           </div>
         </div>

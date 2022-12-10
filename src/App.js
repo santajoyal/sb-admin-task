@@ -23,9 +23,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Dashboard/>}></Route>
           <Route path='/users' element={<User/>}></Route>
-          <Route path='/users/create' element={<Createuser/>}></Route>
-          <Route path='/users/view/:id' element={<Viewuser/>}></Route>
-          <Route path='/users/edit/:id' element={<Edituser/>}></Route>
+          <Route path='/create-user' element={<Createuser/>}></Route>
+          <Route path='/profile/:id' element={<Viewuser/>}></Route>
+          <Route path='/edit-user/:id' element={<Edituser/>}></Route>
 
         </Routes>
       </div>
