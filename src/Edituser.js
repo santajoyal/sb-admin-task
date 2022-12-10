@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function Edituser() {
@@ -16,7 +16,7 @@ function Edituser() {
     },
    onSubmit:  async (values) => {
       try {
-        const userdata = await axios.get(
+        const userdata = await axios.put(
           `https://6346c13f9eb7f8c0f884b683.mockapi.io/users/${params.id}`
         );
         console.log(userdata)
@@ -26,6 +26,21 @@ function Edituser() {
       }
     },
   });
+
+  useEffect(()=>{
+   userdata()
+  },[])
+
+  let userdata = async () => {
+    try {
+      const data = await axios.get(
+        `https://6346c13f9eb7f8c0f884b683.mockapi.io/users/${params.id}`
+      );
+      formik.setValues(data.data)
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   return (
     <div className="container">
